@@ -14,17 +14,17 @@
         </div>
     }
 
-    <div class="clearfix">
-        <p>@Messages("securesocial.login.instructions")</p>
+    <!--<div class="clearfix">-->
+        <!--<p>@Messages("securesocial.login.instructions")</p>-->
 
-        <p>
-            @for(p <- providers if p.authMethod != securesocial.core.AuthenticationMethod.UserPassword) {
-                @defining( "images/providers/%s.png".format(p.providerId) ) { imageUrl =>
-                    <a href="@p.authenticationUrl"> <img src="@routes.Assets.at(imageUrl)"/></a>
-                }
-            }
-        </p>
-    </div>
+        <!--<p>-->
+            <!--@for(p <- providers if p.authMethod != securesocial.core.AuthenticationMethod.UserPassword) {-->
+                <!--@defining( "images/providers/%s.png".format(p.providerId) ) { imageUrl =>-->
+                    <!--<a href="@p.authenticationUrl"><img src="@routes.Assets.at(imageUrl)"/></a>-->
+                <!--}-->
+            <!--}-->
+        <!--</p>-->
+    <!--</div>-->
 
     <div class="clearfix">
         <p>@Messages("securesocial.login.useEmailAndPassword")</p>
@@ -45,7 +45,7 @@
                 )
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">@Messages("securesocial.login.title")</button>
+                    <button type="submit" class="btn btn-primary">@Messages("securesocial.button.login")</button>
                     <a class="btn" href="@securesocial.controllers.routes.LoginPage.login()">@Messages("securesocial.signup.cancel")</a>
                 </div>
 
