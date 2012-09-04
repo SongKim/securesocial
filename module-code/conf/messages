@@ -1,17 +1,19 @@
 # App name
-securesocial.appName=SecureSocial 2
+securesocial.appName=BrasPay Inc
 
 # Login page
-securesocial.login.title=Login
+securesocial.button.login=Login
+securesocial.login.title=BrasPay Login
 securesocial.login.instructions=Use your existing account on one of the following networks to log in.
 securesocial.login.accessDenied=You denied access to your account. Please grant it to log in.
-securesocial.login.useEmailAndPassword=Or login using a username and password.
+securesocial.login.useEmailAndPassword=Login using a username and password.
 securesocial.login.signUp=If you don't have an account with us yet you can sign up
 securesocial.login.here=here
 securesocial.login.invalidCredentials=Invalid username and password combination
 
 # Sign up page
-securesocial.signup.title=Signup
+message.signup.title=Signup
+securesocial.signup.url=/signup
 securesocial.signup.username=Username
 securesocial.signup.fullName=Full Name
 securesocial.signup.email1=Email
@@ -23,3 +25,9 @@ securesocial.signup.cancel=Cancel
 
 #
 securesocial.loginRequired=You need to log in to access that page.
+
+createuser.message.subject=BrasPay User Validation
+createuser.message.header="Dear BrasPay customer:\n\nWe have received a request to authorize an email address for use with BrasPay.  To confirm that you are authorized to use this email address, please go to the following URL:"
+createuser.message.footer="\n\nYour request will not be processed unless you confirm the address using this URL.\n\nSincerely, BrasPay."
+createuser.message.success="Your user is active, please login."
+createuser.message.failed="Invalid usercode, please sign up."
