@@ -54,7 +54,8 @@ class UsernamePasswordProvider(application: Application) extends IdentityProvide
 
   private def badRequest(f: Form[(String,String)], msg: Option[String] = None): PlainResult = {
 //    Results.BadRequest(securesocial.views.html.login(ProviderRegistry.all().values, f, msg))
-    Results.BadRequest(securesocial.views.html.login(ProviderRegistry.all().values, f, Some(InvalidCredentials)))
+//    Results.BadRequest(securesocial.views.html.login(ProviderRegistry.all().values, f, Some(InvalidCredentials)))
+      Results.BadRequest(securesocial.controllers.LoginPage.loginPageWithErrors)
   }
 
   def fillProfile(user: SocialUser) = {

@@ -25,6 +25,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
+import views.html._
 
 /**
  * The Login page controller
@@ -47,6 +48,15 @@ object LoginPage extends Controller
    */
   val Root = "/"
 
+  /**
+   * Create a delegate variable so SecureSocial calls our login template
+   * instead of their standard login template
+   */
+  var loginPage = securesocial.views.html.login(ProviderRegistry.all().values,
+    securesocial.core.providers.UsernamePasswordProvider.loginForm)
+
+  var loginPageWithErrors = securesocial.views.html.login(ProviderRegistry.all().values,
+    securesocial.core.providers.UsernamePasswordProvider.loginForm, Some(Messages("securesocial.login.invalidCredentials")))
 
 
   /**
@@ -54,7 +64,7 @@ object LoginPage extends Controller
    * @return
    */
   def login = Action { implicit request =>
-    Ok(securesocial.views.html.login(ProviderRegistry.all().values, securesocial.core.providers.UsernamePasswordProvider.loginForm))
+    Ok(loginPage)
   }
 
   /**
@@ -64,6 +74,7 @@ object LoginPage extends Controller
    * @return
    */
   def logout = Action { implicit request =>
+//    val to = Play.configuration.getString(onLogoutGoTo).getOrElse(routes.LoginPage.login().absoluteURL())
     val to = Play.configuration.getString(onLogoutGoTo).getOrElse(routes.LoginPage.login().absoluteURL())
     Redirect(to).withSession(session - SecureSocial.UserKey - SecureSocial.ProviderKey)
   }
@@ -89,6 +100,7 @@ object LoginPage extends Controller
               val toUrl = session.get(SecureSocial.OriginalUrlKey).getOrElse(
                 Play.configuration.getString(onLoginGoTo).getOrElse(Root)
               )
+              println("TO URL: " + toUrl) //
               Redirect(toUrl).withSession { session +
                 (SecureSocial.UserKey -> user.id.id) +
                 (SecureSocial.ProviderKey -> user.id.providerId) -
@@ -97,7 +109,9 @@ object LoginPage extends Controller
           })
         } catch {
           case ex: AccessDeniedException => Logger.warn("User declined access using provider " + provider)
-          Redirect(routes.LoginPage.login()).flashing("error" -> Messages("securesocial.login.accessDenied"))
+          Redirect(routes.LoginPage.login()).flashing("error" -> Messages("securesocial.login.here"))
+//            Redirect(loginPage).flashing()//.LoginPage.login()).flashing("error" -> "dsfsdfasdf")
+
         }
       }
       case _ => NotFound
