@@ -100,7 +100,6 @@ object LoginPage extends Controller
               val toUrl = session.get(SecureSocial.OriginalUrlKey).getOrElse(
                 Play.configuration.getString(onLoginGoTo).getOrElse(Root)
               )
-              println("TO URL: " + toUrl) //
               Redirect(toUrl).withSession { session +
                 (SecureSocial.UserKey -> user.id.id) +
                 (SecureSocial.ProviderKey -> user.id.providerId) -
@@ -109,8 +108,7 @@ object LoginPage extends Controller
           })
         } catch {
           case ex: AccessDeniedException => Logger.warn("User declined access using provider " + provider)
-          Redirect(routes.LoginPage.login()).flashing("error" -> Messages("securesocial.login.here"))
-//            Redirect(loginPage).flashing()//.LoginPage.login()).flashing("error" -> "dsfsdfasdf")
+          Redirect(routes.LoginPage.login()).flashing("error" -> Messages("securesocial.login.invalidCredentials"))
 
         }
       }
