@@ -64,7 +64,12 @@ object LoginPage extends Controller
    * @return
    */
   def login = Action { implicit request =>
-    Ok(loginPage)
+    if (request.session.get(SecureSocial.UserKey).isDefined) {
+      val to = Play.configuration.getString(onLoginGoTo).getOrElse(routes.LoginPage.login().absoluteURL())
+      Redirect(to)
+    } else {
+      Ok(loginPage)
+    }
   }
 
   /**
