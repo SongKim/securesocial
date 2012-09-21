@@ -64,10 +64,10 @@ object LoginPage extends Controller
    * @return
    */
   def login = Action { implicit request =>
-    if (request.session.get(SecureSocial.UserKey).isDefined) {
+    request.session.get(SecureSocial.UserKey).map { user =>
       val to = Play.configuration.getString(onLoginGoTo).getOrElse(routes.LoginPage.login().absoluteURL())
       Redirect(to)
-    } else {
+    }.getOrElse {
       Ok(loginPage)
     }
   }
@@ -79,7 +79,6 @@ object LoginPage extends Controller
    * @return
    */
   def logout = Action { implicit request =>
-//    val to = Play.configuration.getString(onLogoutGoTo).getOrElse(routes.LoginPage.login().absoluteURL())
     val to = Play.configuration.getString(onLogoutGoTo).getOrElse(routes.LoginPage.login().absoluteURL())
     Redirect(to).withSession(session - SecureSocial.UserKey - SecureSocial.ProviderKey)
   }
