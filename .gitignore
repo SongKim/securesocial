@@ -19,3 +19,6 @@ eclipse
 *.iml
 *.ipr
 *.iws
+bin/
+.target/
+.cache
